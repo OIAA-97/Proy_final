@@ -7,8 +7,8 @@ package Proy_final;
 
 /**
  *
- * @author Haru
+ * @author fenix
  */
-public class NewClass {
+public class arbol {
     
 }
