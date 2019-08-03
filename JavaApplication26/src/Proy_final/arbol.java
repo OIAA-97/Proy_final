@@ -5,14 +5,19 @@
  */
 package Proy_final;
 
+import java.util.Vector;
+
 /**
  *
  * @author fenix
  */
 public class arbol {
-    private Nodo raiz;
+    Nodo raiz;
+    Vector lista;
+    
 
     public arbol() {
+        lista = new Vector();
     }
     
     
@@ -41,84 +46,88 @@ public class arbol {
     
     public void insertar(int dato)
     {
-        Nodo nuevo;
-          nuevo = new Nodo ();
-          nuevo.dato = dato;
-          
-          nuevo.iz = null;
-          nuevo.Dr = null;
-          
-          if (raiz == null)
-              raiz = nuevo;
-          else
-          {
-              Nodo anterior = null, reco;
-              reco = raiz;
-          
-              while (reco != null)
-              {
-                  anterior = reco;
-                  if (dato < reco.dato)
-                      reco = reco.iz;
-                  else
-                      reco = reco.Dr;
-              }
-              if (dato < anterior.dato)
-                  anterior.iz = nuevo;
-              else
-                  anterior.Dr = nuevo;
-          }
+         Nodo nuevo = new Nodo(dato);
+        if (raiz == null) {
+            raiz = nuevo;
+        } else {
+            Nodo auxiliar = raiz;
+            Nodo padre;
+            while (true) {
+                padre = auxiliar;
+                if (dato < auxiliar.dato) {
+                    auxiliar = auxiliar.iz;
+                    if (auxiliar == null) {
+                        padre.iz = nuevo;
+                        return;
+                    }
+                } else {
+                    auxiliar = auxiliar.Dr;
+                    if (auxiliar == null) {
+                        padre.Dr = nuevo;
+                        return;
+                    }
+                }
+            }
+
+        }
+
     }
 
-    private void imprimirPre (Nodo reco)
-      {
-          if (reco != null)
-          {
-              System.out.print(reco.dato + " ");
-              imprimirPre (reco.iz);
-              imprimirPre (reco.Dr);
-          }
-      }
-
-      public void imprimirPre ()
-      {
-          imprimirPre (raiz);
-          System.out.println();
-      }
-
-      private void imprimirEntre (Nodo reco)
-      {
-          if (reco != null)
-          {    
-              imprimirEntre (reco.iz);
-              System.out.print(reco.dato + " ");
-              imprimirEntre (reco.Dr);
-          }
-      }
-
-      public void imprimirEntre ()
-      {
-          imprimirEntre (raiz);
-          System.out.println();
-      }
-
-
-      private void imprimirPost (Nodo reco)
-      {
-          if (reco != null)
-          {
-              imprimirPost (reco.iz);
-              imprimirPost (reco.Dr);
-              System.out.print(reco.dato + " ");
-          }
-      }
-
-
-      public void imprimirPost ()
-      {
-          imprimirPost (raiz);
-          System.out.println();
-      }
+    public boolean estaVacio() {
+        return raiz == null;
+    }
+    
+    public Vector llamaInOrder(Nodo r){
+       if(lista == null)
+       {
+           return inOrden(r);
+       }
+       else{
+           lista.clear();
+        return inOrden(r);
+       }
+    }
+    public Vector llamaPreOrder(Nodo r){
+        lista.clear();
+        return preOrden(r);
+    }
+    public Vector llamaPosOrder(Nodo r){
+        lista.clear();
+         posOrden(r);
+         
+        return lista;
+    }
+    
+    public Vector inOrden(Nodo r){ 
+        System.out.println(r);
+        if(r!=null){
+            inOrden(r.iz);
+            System.out.print(r.dato + ", "+"que on los valores");
+            lista.add(r);
+            inOrden(r.Dr);
+        }
+        return lista;
+    }
+    
+    public Vector preOrden(Nodo r){
+        if(r!=null){
+            System.out.print(r.dato + ", ");
+            lista.add(r);
+            preOrden(r.iz);
+            preOrden(r.Dr);
+        }
+        return lista;
+    }
+      public void posOrden(Nodo r){
+        if(r!=null){
+            posOrden(r.iz);
+            posOrden(r.Dr);
+            lista.add(r);
+            System.out.print(r.dato + ", ");
+         
+        }
+       
+    }
       
       
       public boolean  eliminarnodo( int d)

@@ -7,6 +7,7 @@ package Proy_final;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.Vector;
 
 /**
  *
@@ -14,13 +15,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class vistas extends javax.swing.JFrame {
       arbol arb= new arbol();
-      DefaultTableModel tbm;
+      //DefaultTableModel t= new defau;
+      String metodo = "InOrder";
     /**
      * Creates new form vistas
      */
     public vistas() {
         initComponents();
-        tbm=new DefaultTableModel(new String[]{"Dato"},0);
+     
     }
 
     /**
@@ -43,8 +45,6 @@ public class vistas extends javax.swing.JFrame {
         dato = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        jTextField3 = new javax.swing.JTextField();
-        llenartabla = new javax.swing.JButton();
 
         jTextField2.setText("jTextField2");
 
@@ -72,10 +72,25 @@ public class vistas extends javax.swing.JFrame {
         });
 
         inorden.setText("InOrden");
+        inorden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inordenActionPerformed(evt);
+            }
+        });
 
         preorden.setText("PreOrden");
+        preorden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                preordenActionPerformed(evt);
+            }
+        });
 
         postorden.setText("PostOrden");
+        postorden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                postordenActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("dato");
 
@@ -100,19 +115,6 @@ public class vistas extends javax.swing.JFrame {
             tabla.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-
-        llenartabla.setText("insertar");
-        llenartabla.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                llenartablaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,127 +122,145 @@ public class vistas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dato, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(borrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                            .addComponent(buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                            .addComponent(agregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(llenartabla, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(inorden, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(preorden, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(postorden, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                        .addComponent(postorden, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dato, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(dato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(llenartabla))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(agregar)
-                        .addGap(62, 62, 62)
-                        .addComponent(borrar)
-                        .addGap(40, 40, 40)
-                        .addComponent(buscar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(dato, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                        .addComponent(agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inorden)
                     .addComponent(preorden)
-                    .addComponent(postorden)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(postorden))
                 .addGap(55, 55, 55))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-    public void llenartabla()
-    {
-         Object row[]=new Object[1];
-         row[0]=dato.getText();
-         tbm.addRow(row);
-         tabla.setModel(tbm);
-    }
+   
     
-    private void llenartablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llenartablaActionPerformed
-        llenartabla();
-    }//GEN-LAST:event_llenartablaActionPerformed
-
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
       
-        
-        String dat=String.valueOf(tbm.getValueAt(tabla.getSelectedRow(),0));
-        dato.setText(dat);
-        int r;
-        r=Integer.parseInt(dat);
-        
-        arb.insertar(r);
-        
-               JOptionPane.showMessageDialog(null,"exito de agregar ");
+         if (dato.getText() == null || dato.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El arbol esta vacio", "alto", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            try {
+                arb.insertar(Integer.parseInt(dato.getText()));
+            refrescar(metodo);
+            }
+            catch(Exception ex)
+            {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+      
                 
         
     }//GEN-LAST:event_agregarActionPerformed
+  public void refrescar(String metodo) {
+        Vector renglones = new Vector();
+        DefaultTableModel tbm = (DefaultTableModel) tabla.getModel();
+        tbm.getDataVector().clear();
+        switch (metodo) {
+            case "PreOrden":
+                renglones = arb.llamaPreOrder(arb.raiz);
+                break;
+            case "PosOrden":
+                renglones = arb.llamaPosOrder(arb.raiz);
+                break;
+            case "InOrden":
+                renglones = arb.llamaInOrder(arb.raiz);
+                break;
+            default:
+                renglones = arb.llamaInOrder(arb.raiz);
+                System.out.println("fallo");
+                break;
+        }
+        for (int i = 0; i < renglones.size(); i++) {
+            Nodo N = (Nodo) renglones.get(i);
+            tbm.addRow(new Object[]{N.dato});
+        }
+    }
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+     int renglon = tabla.getSelectedRow();
+        String dato = tabla.getModel().getValueAt(renglon, 0).toString();
      
-         String dat=String.valueOf(tbm.getValueAt(tabla.getSelectedRow(),0));
-        dato.setText(dat);
         int r;
-        r=Integer.parseInt(dat);
+        r=Integer.parseInt(dato);
         
         if(arb.buscarnodo(r)!= null)
         {
             JOptionPane.showMessageDialog(null, arb.buscarnodo(r));
         }
+        
         else
         {
             JOptionPane.showMessageDialog(null,"no existe es dato");
         }
         
+        
+
+        
     }//GEN-LAST:event_buscarActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
-       
-        
-        String dat=String.valueOf(tbm.getValueAt(tabla.getSelectedRow(),0));
-        dato.setText(dat);
-        int r;
-        r=Integer.parseInt(dat);
-        arb.eliminarnodo(r);
-         int []filasselec  = tabla.getSelectedRows();
-           for (int i=0; i<filasselec.length;i++)
-           {
-           tbm.removeRow(i);
-            
-           }
-        
+       int renglon = tabla.getSelectedRow();
+        String dato = tabla.getModel().getValueAt(renglon, 0).toString();
+        arb.eliminarnodo(Integer.parseInt(dato));
+        refrescar(metodo);
     }//GEN-LAST:event_borrarActionPerformed
+
+    private void inordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inordenActionPerformed
+        metodo = "InOrden";
+        refrescar(metodo);
+    }//GEN-LAST:event_inordenActionPerformed
+
+    private void preordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preordenActionPerformed
+        metodo = "PreOrden";
+        refrescar(metodo);
+    }//GEN-LAST:event_preordenActionPerformed
+
+    private void postordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postordenActionPerformed
+        metodo = "PosOrden";
+        refrescar(metodo);
+    }//GEN-LAST:event_postordenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,8 +306,6 @@ public class vistas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JButton llenartabla;
     private javax.swing.JButton postorden;
     private javax.swing.JButton preorden;
     private javax.swing.JTable tabla;

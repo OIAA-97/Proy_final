@@ -11,12 +11,15 @@ package Proy_final;
  */
 public class Nodo {
         public int dato;
-    public Nodo iz;
-    public Nodo Dr;
+    public Nodo iz=null;
+    public Nodo Dr=null;
 
     
 
-    public Nodo() {
+    public Nodo(int dato) {
+        this.dato=dato;
+        this.iz=null;
+        this.Dr = null;
         
         
     }
